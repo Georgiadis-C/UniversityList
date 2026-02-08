@@ -9,6 +9,9 @@ namespace UniversityList.ViewModels
 {
     public partial class AddUpdateStudentDetailViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private readonly StudentModel _studentDetail;
+
         private readonly IStudentService _studentService;
 
         public AddUpdateStudentDetailViewModel(IStudentService studentService)
