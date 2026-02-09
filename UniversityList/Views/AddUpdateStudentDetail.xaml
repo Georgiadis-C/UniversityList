@@ -14,19 +14,19 @@
     <StackLayout Margin="10" Spacing="15">
         <VerticalStackLayout>
             <Label Text="First Name" />
-            <Entry Text="{Binding FirstName}" Placeholder="First Name" />
+            <Entry Text="{Binding StudentDetail.FirstName}" Placeholder="First Name" />
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout>
             <Label Text="Last Name" />
-            <Entry Text="{Binding LastName}" Placeholder="Last Name" />
+            <Entry Text="{Binding StudentDetail.LastName}" Placeholder="Last Name" />
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout>
             <Label Text="Email" />
-            <Entry Text="{Binding Email}" Placeholder="Email" />
+            <Entry Text="{Binding StudentDetail.Email}" Placeholder="Email" />
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 

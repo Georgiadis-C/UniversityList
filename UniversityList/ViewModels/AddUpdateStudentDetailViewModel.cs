@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using UniversityList.Models;
 using UniversityList.Services;
 
 namespace UniversityList.ViewModels
 {
+    [QueryProperty(nameof(StudentDetail),"StudentDetail")]
     public partial class AddUpdateStudentDetailViewModel : ObservableObject
     {
         [ObservableProperty]
-        private readonly StudentModel _studentDetail;
+        private StudentModel _studentDetail = new StudentModel();
 
         private readonly IStudentService _studentService;
 
@@ -19,29 +21,30 @@ namespace UniversityList.ViewModels
             _studentService = studentService;
         }
 
-        [ObservableProperty]
-        private string _firstName;
-
-        [ObservableProperty]
-        private string _lastName;
-
-        [ObservableProperty]
-        private string _email;
-
         [RelayCommand]
         public async Task AddUpdateStudent()
         {
-            var response = await _studentService.AddStudent(new Models.StudentModel
+            int response = -1;
+            if(StudentDetail.StudentId > 0)
             {
-                Email = Email,
-                FirstName = FirstName,
-                LastName = LastName,
+                response = await _studentService.UpdateStudent(StudentDetail);
+            }
+            else
+            {
+                 response = await _studentService.AddStudent(new Models.StudentModel
+                {
+                    Email = StudentDetail.Email,
+                    FirstName = StudentDetail.FirstName,
+                    LastName = StudentDetail.LastName,
 
-            });
+                });
+            }
+
+
 
             if(response > 0)
             {
-                await Shell.Current.DisplayAlert("Success", "Record added to Student Table", "OK");
+                await Shell.Current.DisplayAlert("Student Info Saved", "Record Saved", "OK");
             }
             else
             {
