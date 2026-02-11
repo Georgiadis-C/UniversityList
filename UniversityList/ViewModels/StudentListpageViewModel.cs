@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using UniversityList.Models;
 using UniversityList.Services;
 using UniversityList.Views;
@@ -13,52 +15,90 @@ namespace UniversityList.ViewModels
     public partial class StudentListpageViewModel : ObservableObject
     {
         public ObservableCollection<StudentModel> Students { get; set; } = new ObservableCollection<StudentModel>();
-        
-       private readonly IStudentService _studentService;
+
+        private readonly IStudentService _studentService;
+        private List<StudentModel> _allStudentsList = new List<StudentModel>();
+
+        [ObservableProperty]
+        private string _searchText;
+
         public StudentListpageViewModel(IStudentService studentService)
         {
             _studentService = studentService;
+
+            WeakReferenceMessenger.Default.Register<RefreshStudentListMessage>(this, (r, m) =>
+            {
+                MainThread.BeginInvokeOnMainThread(async () => await GetStudentList());
+            });
         }
 
+        partial void OnSearchTextChanged(string value)
+        {
+            SearchStudent(value);
+        }
 
         [RelayCommand]
-        public  async void GetStudentList()
+        public void SearchStudent(string searchText)
         {
-            var studentList = await _studentService.GetStudentList();
-            if(studentList?.Count > 0)
+            if (string.IsNullOrWhiteSpace(searchText))
             {
                 Students.Clear();
-                foreach(var student in studentList)
+                foreach (var s in _allStudentsList) Students.Add(s);
+                return;
+            }
+
+            var filtered = _allStudentsList
+                .Where(s => s.LastName != null && s.LastName.ToLower().Contains(searchText.ToLower()))
+                .ToList();
+
+            Students.Clear();
+            foreach (var s in filtered) Students.Add(s);
+        }
+
+        [RelayCommand]
+        public async Task GetStudentList() 
+        {
+            var studentList = await _studentService.GetStudentList();
+
+            Students.Clear();
+            _allStudentsList.Clear();
+
+            if (studentList != null && studentList.Count > 0)
+            {
+                foreach (var student in studentList)
                 {
                     Students.Add(student);
+                    _allStudentsList.Add(student);
                 }
             }
         }
 
         [RelayCommand]
-        public async void AddUpdateStudent()
+        public async Task AddUpdateStudent()
         {
-            await AppShell.Current.GoToAsync(nameof(AddUpdateStudentDetail));
+            await Shell.Current.GoToAsync(nameof(AddUpdateStudentDetail));
         }
 
-
         [RelayCommand]
-        public async void DisplayAction(StudentModel studentModel)
+        public async Task DisplayAction(StudentModel studentModel)
         {
-            var response = await AppShell.Current.DisplayActionSheet("Select Option", "OK", null, "Edit", "Delete");
+            var response = await Shell.Current.DisplayActionSheet("Select Option", "OK", null, "Edit", "Delete");
 
             if (response == "Edit")
             {
-                var navParam = new Dictionary<string, object>();
-                navParam.Add("StudentDetail", studentModel);
-                await AppShell.Current.GoToAsync(nameof(AddUpdateStudentDetail),navParam);
+                var navParam = new Dictionary<string, object>
+                {
+                    { "StudentDetail", studentModel }
+                };
+                await Shell.Current.GoToAsync(nameof(AddUpdateStudentDetail), navParam);
             }
             else if (response == "Delete")
             {
-               var delResponse = await _studentService.DeleteStudent(studentModel);
+                var delResponse = await _studentService.DeleteStudent(studentModel);
                 if (delResponse > 0)
                 {
                     Students.Remove(studentModel);
+                    _allStudentsList.Remove(studentModel);
                 }
             }
         }

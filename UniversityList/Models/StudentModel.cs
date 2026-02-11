@@ -12,5 +12,9 @@ namespace UniversityList.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string Department { get; set; }
+        public int? YearAdded { get; set; }   
+        public double? GPA { get; set; }
+
     }
 }

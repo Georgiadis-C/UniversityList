@@ -20,4 +20,5 @@ public partial class StudentListPage : ContentPage
         base.OnAppearing();
         _viewModel.GetStudentListCommand.Execute(null);
     }
+
 }

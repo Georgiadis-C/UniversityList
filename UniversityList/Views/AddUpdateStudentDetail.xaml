@@ -30,6 +30,24 @@
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 
+        <VerticalStackLayout>
+            <Label Text="Department" />
+            <Entry Text="{Binding StudentDetail.Department}" Placeholder="Department" />
+            <BoxView HeightRequest="0.8" Color="Gray"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Year Added" />
+            <Entry Text="{Binding StudentDetail.YearAdded}" Placeholder="Year Added" />
+            <BoxView HeightRequest="0.8" Color="Gray"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Grade Point Average" />
+            <Entry Text="{Binding StudentDetail.GPA}" Placeholder="Grade Point Average"  />
+            <BoxView HeightRequest="0.8" Color="Gray"/>
+        </VerticalStackLayout>
+
 
         <Button Text="Save" Command="{Binding AddUpdateStudentCommand}"/>
     </StackLayout>

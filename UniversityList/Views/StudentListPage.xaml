@@ -5,21 +5,29 @@
              xmlns:viewModels="clr-namespace:UniversityList.ViewModels"
              x:DataType="viewModels:StudentListpageViewModel"
              x:Class="UniversityList.Views.StudentListPage"
-             Title="Student List">
+             Title="Student List"
+             BackgroundColor="#0B0E11"
+             >
     <StackLayout Margin="10">
-        <Label Text="Student List" FontSize="28" />
-        <Button Text="Add Student" Command="{Binding AddUpdateStudentCommand}" HorizontalOptions="EndAndExpand" />
+        <Label Text="Welcome back!" TextColor="LightGray" FontSize="28" />
+       
+        <SearchBar x:Name="StudentSearchBar" 
+           BackgroundColor="#1A1D21"        
+           Placeholder="Search by Last Name"
+           PlaceholderColor="Gray" 
+           TextColor="Gray"
+           Text="{Binding SearchText}" />
 
         <CollectionView ItemsSource="{Binding Students}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:StudentModel">
-                    <Frame Margin="10">
+                    <Frame BackgroundColor="#1A1D21" Margin="10">
                         <StackLayout Margin="10" Padding="10">
                             <HorizontalStackLayout Spacing="15">
-                                <Label Text="{Binding FirstName}" FontSize="18" FontAttributes="Bold"/>
-                                <Label Text="{Binding LastName}" FontSize="18" FontAttributes="Bold"/>
+                                <Label  Text="{Binding FirstName}" TextColor="Gray" FontSize="18" FontAttributes="Bold"/>
+                                <Label Text="{Binding LastName}" TextColor="Gray" FontSize="18" FontAttributes="Bold"/>
                             </HorizontalStackLayout>
-                            <Label Text="{Binding Email}"/>
+                            <Label Text="{Binding Email}" TextColor="LightGray"/>
                         </StackLayout>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType = {x:Type viewModels:StudentListpageViewModel}}, Path=DisplayActionCommand}" CommandParameter="{Binding .}" />
