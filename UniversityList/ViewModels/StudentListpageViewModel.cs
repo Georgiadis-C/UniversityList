@@ -9,28 +9,18 @@ using CommunityToolkit.Mvvm.Messaging;
 using UniversityList.Models;
 using UniversityList.Services;
 using UniversityList.Views;
+using UniversityList.Interfaces;
 
 namespace UniversityList.ViewModels
 {
-    public partial class StudentListpageViewModel : ObservableObject
+    public partial class StudentListpageViewModel(IStudentService _studentService) : ObservableObject 
     {
         public ObservableCollection<StudentModel> Students { get; set; } = new ObservableCollection<StudentModel>();
 
-        private readonly IStudentService _studentService;
         private List<StudentModel> _allStudentsList = new List<StudentModel>();
 
         [ObservableProperty]
         private string _searchText;
-
-        public StudentListpageViewModel(IStudentService studentService)
-        {
-            _studentService = studentService;
-
-            WeakReferenceMessenger.Default.Register<RefreshStudentListMessage>(this, (r, m) =>
-            {
-                MainThread.BeginInvokeOnMainThread(async () => await GetStudentList());
-            });
-        }
 
         partial void OnSearchTextChanged(string value)
         {
@@ -94,12 +84,9 @@ namespace UniversityList.ViewModels
             }
             else if (response == "Delete")
             {
-                var delResponse = await _studentService.DeleteStudent(studentModel);
-                if (delResponse > 0)
-                {
+                await _studentService.DeleteStudent(studentModel);
                     Students.Remove(studentModel);
                     _allStudentsList.Remove(studentModel);
-                }
             }
         }
     }

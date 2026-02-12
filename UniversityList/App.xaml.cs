@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
-using UniversityList.Services;
+using UniversityList.Interfaces;
 
 namespace UniversityList
 {

@@ -2,6 +2,7 @@
 using UniversityList.Views;
 using UniversityList.ViewModels;
 using UniversityList.Services;
+using UniversityList.Interfaces;
 
 namespace UniversityList
 {

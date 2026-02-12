@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SQLite;
+using UniversityList.Interfaces;
 using UniversityList.Models;
 
 namespace UniversityList.Services
@@ -23,25 +24,27 @@ namespace UniversityList.Services
                 await _dbConnection.CreateTableAsync<StudentModel>();
             }
         }
-        public Task<int> AddStudent(StudentModel studentModel)
+        public async Task SaveStudent(StudentModel studentModel)
         {
-            return _dbConnection.InsertAsync(studentModel);
+            if (studentModel.StudentId == 0)
+            {
+                await _dbConnection.InsertAsync(studentModel);
+            }
+            else
+            {
+                await _dbConnection.UpdateAsync(studentModel);
+            }
         }
 
-        public Task<int> DeleteStudent(StudentModel studentModel)
+        public async Task DeleteStudent(StudentModel studentModel)
         {
-            return _dbConnection.DeleteAsync(studentModel);
+            await _dbConnection.DeleteAsync(studentModel);
         }
 
         public async Task<List<StudentModel>> GetStudentList()
         {
             var studentList = await _dbConnection.Table<StudentModel>().ToListAsync();
             return studentList;
-        }
-
-        public Task<int> UpdateStudent(StudentModel studentModel)
-        {
-            return _dbConnection.UpdateAsync(studentModel);
         }
     }
 }

@@ -9,16 +9,14 @@ public partial class StudentListPage : ContentPage
     public StudentListPage(StudentListpageViewModel viewModel)
 	{
 		InitializeComponent();
-        _viewModel = viewModel;
+        BindingContext = _viewModel = viewModel;
 
-		this.BindingContext = viewModel;
+
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
-        
-        base.OnAppearing();
-        _viewModel.GetStudentListCommand.Execute(null);
+         await _viewModel.GetStudentList();
     }
 
 }
