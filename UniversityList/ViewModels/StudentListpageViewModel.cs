@@ -72,7 +72,7 @@ namespace UniversityList.ViewModels
         [RelayCommand]
         public async Task DisplayAction(StudentModel studentModel)
         {
-            var response = await Shell.Current.DisplayActionSheet("Select Option", "OK", null, "Edit", "Delete");
+            var response = await Shell.Current.DisplayActionSheetAsync("Select Option", "OK", null, "Edit", "Delete");
 
             if (response == "Edit")
             {
