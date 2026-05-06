@@ -1,49 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Text;
+using CommunityToolkit.Mvvm.ComponentModel;
 using SQLite;
 using UniversityList.Interfaces;
 using UniversityList.Models;
 
+
 namespace UniversityList.Services
 {
-    public class StudentService : IStudentService
+    public class StudentService (SQLiteAsyncConnection dbConnection) : IStudentService
     {
-        private SQLiteAsyncConnection _dbConnection;
-        public StudentService()
+        private async Task InitializeAsync()
         {
-            SetUpDB();
+            await dbConnection.CreateTableAsync<StudentModel>();
         }
 
-        private async void SetUpDB()
-        {
-            if (_dbConnection == null)
-            {
-                string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Student.db3");
-                _dbConnection = new SQLiteAsyncConnection(dbPath);
-                await _dbConnection.CreateTableAsync<StudentModel>();
-            }
-        }
         public async Task SaveStudent(StudentModel studentModel)
         {
+            await InitializeAsync();
+
             if (studentModel.StudentId == 0)
             {
-                await _dbConnection.InsertAsync(studentModel);
+                await dbConnection.InsertAsync(studentModel);
             }
             else
             {
-                await _dbConnection.UpdateAsync(studentModel);
+                await dbConnection.UpdateAsync(studentModel);
             }
         }
 
         public async Task DeleteStudent(StudentModel studentModel)
         {
-            await _dbConnection.DeleteAsync(studentModel);
+            await InitializeAsync();
+
+            await dbConnection.DeleteAsync(studentModel);
         }
 
         public async Task<List<StudentModel>> GetStudentList()
         {
-            var studentList = await _dbConnection.Table<StudentModel>().ToListAsync();
+            await InitializeAsync();
+
+            var studentList = await dbConnection.Table<StudentModel>().ToListAsync();
             return studentList;
         }
     }

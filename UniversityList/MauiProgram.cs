@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-using UniversityList.Views;
-using UniversityList.ViewModels;
-using UniversityList.Services;
+using SQLite;
 using UniversityList.Interfaces;
+using UniversityList.Services;
+using UniversityList.ViewModels;
+using UniversityList.Views;
 
 namespace UniversityList
 {
@@ -20,7 +21,10 @@ namespace UniversityList
                 });
 
             //Services
+            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Student.db3");
+            builder.Services.AddSingleton(new SQLiteAsyncConnection(dbPath));
             builder.Services.AddSingleton<IStudentService, StudentService>();
+
 
 
             //Views Registration

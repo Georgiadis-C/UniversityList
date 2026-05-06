@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="UniversityList/UniversityList.csproj" />
+  <Project Path="UniversityList/UniversityList.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
+  <Project Path="UniversityListUnitTest/UniversityListUnitTest.csproj" Id="9b7fe1e7-b728-40b5-888a-a3aded49fc93" />
 </Solution>

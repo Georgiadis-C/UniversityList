@@ -20,8 +20,11 @@ namespace UniversityList.ViewModels
         {
             await studentService.SaveStudent(StudentDetail);
 
-            await Shell.Current.DisplayAlertAsync("Student Info Saved", "Record Saved", "OK");
+            if (Shell.Current != null)
+            {
+                await Shell.Current.DisplayAlertAsync("Student Info Saved", "Record Saved", "OK");
 
+            }
             StudentDetail = new();
         }
     }
