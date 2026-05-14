@@ -6,7 +6,10 @@
              x:DataType="viewModels:StudentListpageViewModel"
              x:Class="UniversityList.Views.StudentListPage"
              Title="Student List"
-             BackgroundColor="#0B0E11">
+             BackgroundColor="#0B0E11"
+             xmlns:components="clr-namespace:UniversityList.Components">
+    
+    
     <Grid RowDefinitions="Auto, Auto, *" Margin="10">
 
         <Label Grid.Row="0" Text="Welcome back!" TextColor="LightGray" FontSize="28" />
@@ -49,6 +52,11 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <components:LoadingOverlay Grid.Row="0" 
+                           Grid.RowSpan="3" 
+                           IsVisible="{Binding IsBusy}" 
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Fill" />
     </Grid>
 
 

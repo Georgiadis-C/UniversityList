@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UniversityList.Components.LoadingOverlay"
+             BackgroundColor="#80000000">
+
+    <VerticalStackLayout VerticalOptions="Center" 
+                         HorizontalOptions="Center"
+                         Spacing="15">
+
+        <Image Source="loading_slow_net.gif"
+               IsAnimationPlaying="True"
+               HeightRequest="150"
+               WidthRequest="150" />
+
+    </VerticalStackLayout>
+</ContentView>

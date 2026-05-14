@@ -13,7 +13,7 @@ using UniversityList.Interfaces;
 
 namespace UniversityList.ViewModels
 {
-    public partial class StudentListpageViewModel(IStudentService _studentService) : ObservableObject 
+    public partial class StudentListpageViewModel(IStudentService _studentService) : BaseViewModel 
     {
         public ObservableCollection<StudentModel> Students { get; set; } = new ObservableCollection<StudentModel>();
 
@@ -48,19 +48,25 @@ namespace UniversityList.ViewModels
         [RelayCommand]
         public async Task GetStudentList() 
         {
-            var studentList = await _studentService.GetStudentList();
-
-            Students.Clear();
-            _allStudentsList.Clear();
-
-            if (studentList != null && studentList.Count > 0)
+            await ExecuteAsync(async () =>
             {
-                foreach (var student in studentList)
+                var studentList = await _studentService.GetStudentList();
+
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Students.Add(student);
-                    _allStudentsList.Add(student);
-                }
-            }
+                    Students.Clear();
+                    _allStudentsList.Clear();
+
+                    if (studentList != null && studentList.Count > 0)
+                    {
+                        foreach (var student in studentList)
+                        {
+                            Students.Add(student);
+                            _allStudentsList.Add(student);
+                        }
+                    }
+                }); 
+            });
         }
 
         [RelayCommand]
