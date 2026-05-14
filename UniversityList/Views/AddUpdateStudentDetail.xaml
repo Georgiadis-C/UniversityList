@@ -6,11 +6,9 @@
              x:Class="UniversityList.Views.AddUpdateStudentDetail"
              Title="Student Details"
              BackgroundColor="#0B0E11">
-    <!-- Σκούρο background όπως η αρχική -->
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <!-- Style για τους τίτλους των πεδίων -->
             <Style TargetType="Label" x:Key="FieldLabelStyle">
                 <Setter Property="FontSize" Value="13"/>
                 <Setter Property="TextColor" Value="#8A8D91"/>
@@ -18,7 +16,6 @@
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
 
-            <!-- Style για τα Errors -->
             <Style TargetType="Label" x:Key="ErrorLabelStyle">
                 <Setter Property="TextColor" Value="#FF5252"/>
                 <Setter Property="FontSize" Value="11"/>
@@ -29,15 +26,13 @@
 
     <ScrollView>
         <VerticalStackLayout Margin="20" Spacing="18">
-
-            <!-- Header (Προαιρετικό) -->
+            
             <Label Text="Add / Update Student" 
                    FontSize="24" 
                    TextColor="White" 
                    FontAttributes="Bold" 
                    Margin="0,0,0,10"/>
 
-            <!-- First Name -->
             <VerticalStackLayout>
                 <Label Text="FIRST NAME" Style="{StaticResource FieldLabelStyle}" />
                 <Border Stroke="#1A1D21" StrokeThickness="2" BackgroundColor="#1A1D21" Padding="5">
@@ -50,7 +45,6 @@
                        IsVisible="{Binding FirstNameError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
             </VerticalStackLayout>
 
-            <!-- Last Name -->
             <VerticalStackLayout>
                 <Label Text="LAST NAME" Style="{StaticResource FieldLabelStyle}" />
                 <Border Stroke="#1A1D21" StrokeThickness="2" BackgroundColor="#1A1D21" Padding="5">
@@ -63,7 +57,6 @@
                        IsVisible="{Binding LastNameError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
             </VerticalStackLayout>
 
-            <!-- Email -->
             <VerticalStackLayout>
                 <Label Text="EMAIL" Style="{StaticResource FieldLabelStyle}" />
                 <Border Stroke="#1A1D21" StrokeThickness="2" BackgroundColor="#1A1D21" Padding="5">
