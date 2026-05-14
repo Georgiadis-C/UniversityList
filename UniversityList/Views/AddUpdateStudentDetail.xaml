@@ -16,37 +16,43 @@
     <StackLayout Margin="10" Spacing="15">
         <VerticalStackLayout>
             <Label Text="First Name" />
-            <Entry Text="{Binding StudentDetail.FirstName}" Placeholder="First Name" />
+            <Entry Text="{Binding StudentDetail.FirstName}" Placeholder="First Name" TextColor="White" />
+            <Label Text="{Binding FirstNameError}" TextColor="Red" FontSize="12" IsVisible="{Binding FirstNameError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout>
             <Label Text="Last Name" />
-            <Entry Text="{Binding StudentDetail.LastName}" Placeholder="Last Name" />
+            <Entry Text="{Binding StudentDetail.LastName}" Placeholder="Last Name" TextColor="White" />
+            <Label Text="{Binding LastNameError}" TextColor="Red" FontSize="12" IsVisible="{Binding LastNameError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout>
             <Label Text="Email" />
-            <Entry Text="{Binding StudentDetail.Email}" Placeholder="Email" />
+            <Entry Text="{Binding StudentDetail.Email}" Placeholder="Email" TextColor="White" />
+            <Label Text="{Binding EmailError}" TextColor="Red" FontSize="12" IsVisible="{Binding EmailError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout>
             <Label Text="Department" />
-            <Entry Text="{Binding StudentDetail.Department}" Placeholder="Department" />
+            <Entry Text="{Binding StudentDetail.Department}" Placeholder="Department" TextColor="White" />
+            <Label Text="{Binding DepartmentError}" TextColor="Red" FontSize="12" IsVisible="{Binding DepartmentError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout>
             <Label Text="Year Added" />
-            <Entry Text="{Binding StudentDetail.YearAdded}" Placeholder="Year Added" />
+            <Entry Text="{Binding StudentDetail.YearAdded}" Placeholder="Year Added" TextColor="White" />
+            <Label Text="{Binding YearAddedError}" TextColor="Red" FontSize="12" IsVisible="{Binding YearAddedError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout>
             <Label Text="Grade Point Average" />
-            <Entry Text="{Binding StudentDetail.GPA}" Placeholder="Grade Point Average"  />
+            <Entry Text="{Binding StudentDetail.GPA}" Placeholder="Grade Point Average" TextColor="White" />
+            <Label Text="{Binding GpaError}" TextColor="Red" FontSize="12" IsVisible="{Binding GpaError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
             <BoxView HeightRequest="0.8" Color="Gray"/>
         </VerticalStackLayout>
 
