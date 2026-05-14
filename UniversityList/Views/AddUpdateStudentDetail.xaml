@@ -76,9 +76,7 @@
                        IsVisible="{Binding EmailError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
             </VerticalStackLayout>
 
-            <!-- GPA και Year Added σε μια σειρά (για εξοικονόμηση χώρου) -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
-                <!-- Year Added -->
                 <VerticalStackLayout Grid.Column="0">
                     <Label Text="YEAR" Style="{StaticResource FieldLabelStyle}" />
                     <Border Stroke="#1A1D21" StrokeThickness="2" BackgroundColor="#1A1D21" Padding="5">
@@ -91,7 +89,6 @@
                            IsVisible="{Binding YearAddedError, Converter={StaticResource StringNotEmptyToBoolConverter}}"/>
                 </VerticalStackLayout>
 
-                <!-- GPA -->
                 <VerticalStackLayout Grid.Column="1">
                     <Label Text="GPA" Style="{StaticResource FieldLabelStyle}" />
                     <Border Stroke="#1A1D21" StrokeThickness="2" BackgroundColor="#1A1D21" Padding="5">
@@ -105,7 +102,6 @@
                 </VerticalStackLayout>
             </Grid>
 
-            <!-- Save Button -->
             <Button Text="SAVE DETAILS" 
                     Command="{Binding AddUpdateStudentCommand}"
                     BackgroundColor="#2A2D31"
